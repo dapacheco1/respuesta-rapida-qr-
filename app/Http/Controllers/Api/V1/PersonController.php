@@ -16,7 +16,7 @@ class PersonController extends Controller
      */
     public function index()
     {
-        //
+        return PersonResource::collection(Person::all());
     }
 
     /**
