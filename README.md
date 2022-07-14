@@ -14,3 +14,8 @@ I use MySQL database Engine. To setup the database from this project, please fol
 - Rename **.env.example** to **.env**
 - Go to MySQL db connection and change all settings for your environment.
 - Execute this command ``php artisan migrate:refresh --seed`` to generate database with random data.
+
+
+## External APP setup
+
+On front-end app use add this header=> Accept:application/json

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\PersonResource;
 use App\Models\Person;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class PersonController extends Controller
 {
@@ -38,7 +39,9 @@ class PersonController extends Controller
      */
     public function show(Person $person)
     {
-        return new PersonResource($person);
+
+       return new PersonResource($person);
+
     }
 
     /**
@@ -61,6 +64,23 @@ class PersonController extends Controller
      */
     public function destroy(Person $person)
     {
-        //
+        $response = [];
+
+        if($person){
+            $person->delete();
+            $response = [
+                'success' =>true,
+                'message' => 'Register deleted successfully',
+                'HTTP_CODE' =>Response::HTTP_NO_CONTENT
+            ];
+        }else{
+            $response = [
+                'success' =>false,
+                'message' =>'Cannot find register and unable to delete',
+                'HTTP_CODE' =>Response::HTTP_NO_CONTENT
+            ];
+        }
+
+        return response()->json($response);
     }
 }

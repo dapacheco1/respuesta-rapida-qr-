@@ -17,6 +17,6 @@ class DatabaseSeeder extends Seeder
         \App\Models\Rol::factory(3)->create();
         \App\Models\Gender::factory(7)->create();
         \App\Models\Person::factory(10)->create();
-        \App\Models\Usuario::factory(10)->create();
+        \App\Models\User::factory(10)->create();
     }
 }
