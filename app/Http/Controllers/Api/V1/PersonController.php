@@ -28,7 +28,18 @@ class PersonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'gender_id'   => 'required',
+            'dni'         => 'required|max:10',
+            'names'       => 'required',
+            'lastnames'   => 'required',
+            'address'     => 'required',
+            'phoneNumber' => 'required|max:10',
+            'status'      => 'required|max:1'
+        ]);
+
+        Person::create($request->all());
+        return response()->json(['message'=>'Data created successfully'],201);
     }
 
     /**
@@ -53,7 +64,32 @@ class PersonController extends Controller
      */
     public function update(Request $request, Person $person)
     {
-        //
+        $newPerson = Person::find($person->id);
+        $response = [];
+
+        if($newPerson){
+            $newPerson->gender_id   = $request->gender_id;
+            $newPerson->dni         = $request->dni;
+            $newPerson->names       = $request->names;
+            $newPerson->lastnames   = $request->lastnames;
+            $newPerson->address     = $request->address;
+            $newPerson->phoneNumber = $request->phoneNumber;
+            $newPerson->status      = $request->status;
+            $newPerson->update();
+
+            $response = [
+                'success'=>true,
+                'message' => 'Data updated successfully',
+                'HTTP_CODE' => Response::HTTP_OK
+            ];
+        }else{
+            $response = [
+                'success'=>false,
+                'message' => 'Cannot update data',
+                'HTTP_CODE'=>Response::HTTP_BAD_REQUEST
+            ];
+        }
+        return response()->json($response);
     }
 
     /**
