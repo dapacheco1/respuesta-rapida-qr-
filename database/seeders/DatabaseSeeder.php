@@ -18,5 +18,8 @@ class DatabaseSeeder extends Seeder
         \App\Models\Gender::factory(7)->create();
         \App\Models\Person::factory(10)->create();
         \App\Models\User::factory(10)->create();
+
+        //BUSSINESS CORE
+        \App\Models\Disease::factory(4)->create();
     }
 }
