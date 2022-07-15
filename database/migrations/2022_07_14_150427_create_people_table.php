@@ -23,7 +23,7 @@ class CreatePeopleTable extends Migration
             $table->string('phoneNumber');
             $table->string('status',1);
             //fk field on this table, fk field column on it db, fk db name
-            $table->foreign('gender_id')->references('id')->on('genders');
+            $table->foreign('gender_id')->references('id')->on('genders')->onDelete('cascade');
             $table->timestamps();
         });
     }

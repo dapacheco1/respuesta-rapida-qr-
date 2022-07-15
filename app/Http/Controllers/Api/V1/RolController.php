@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\V1\RolResource;
 use App\Models\Rol;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class RolController extends Controller
 {
@@ -15,7 +17,7 @@ class RolController extends Controller
      */
     public function index()
     {
-        //
+        return RolResource::collection(Rol::all());
     }
 
     /**
@@ -26,7 +28,8 @@ class RolController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Rol::create($request->all());
+        return response()->json(['message'=>'Data created successfully'],201);
     }
 
     /**
@@ -49,7 +52,27 @@ class RolController extends Controller
      */
     public function update(Request $request, Rol $rol)
     {
-        //
+        $newRol = Rol::find($rol->id);
+        $response = [];
+
+        if($newRol){
+            $newRol->name = $request->name;
+            $newRol->status = $request->status;
+            $newRol->update();
+
+            $response = [
+                'success'=>true,
+                'message' => 'Data updated successfully',
+                'HTTP_CODE' => Response::HTTP_OK
+            ];
+        }else{
+            $response = [
+                'success'=>false,
+                'message' => 'Cannot update data',
+                'HTTP_CODE'=>Response::HTTP_BAD_REQUEST
+            ];
+        }
+        return response()->json($response);
     }
 
     /**
@@ -60,6 +83,24 @@ class RolController extends Controller
      */
     public function destroy(Rol $rol)
     {
-        //
+        $response = [];
+
+        if($rol){
+            $rol->delete();
+            $response = [
+                'success' =>true,
+                'message' => 'Register deleted successfully',
+                'HTTP_CODE' =>Response::HTTP_NO_CONTENT
+            ];
+        }else{
+            $response = [
+                'success' =>false,
+                'message' =>'Cannot find register and unable to delete',
+                'HTTP_CODE' =>Response::HTTP_NO_CONTENT
+            ];
+        }
+
+        return response()->json($response);
+
     }
 }
