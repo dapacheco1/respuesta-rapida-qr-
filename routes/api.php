@@ -28,6 +28,6 @@ Route::apiResource('v1/usuarios',App\Http\Controllers\Api\V1\UserController::cla
 
 //Bussines CORE API
 Route::apiResource('v1/diseases',App\Http\Controllers\Api\V1\DiseaseController::class)
-->only(['index','store','show','update','destroy']);
+->only(['index','store','show','update','destroy'])
+->middleware('auth:sanctum');
 
-//->middleware('auth:sanctum');
