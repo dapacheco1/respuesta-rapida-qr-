@@ -29,7 +29,7 @@ class RolController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:45',
+            'name'   => 'required|max:45',
             'status' => 'required|max:1'
         ]);
 
@@ -45,7 +45,7 @@ class RolController extends Controller
      */
     public function show(Rol $rol)
     {
-        return $rol;
+        return new RolResource($rol);
     }
 
     /**
