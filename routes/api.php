@@ -24,3 +24,10 @@ Route::apiResource('v1/persons',App\Http\Controllers\Api\V1\PersonController::cl
 Route::apiResource('v1/usuarios',App\Http\Controllers\Api\V1\UserController::class)
 ->only(['index','store','show','update','destroy'])
 ->middleware('auth:sanctum');
+
+
+//Bussines CORE API
+Route::apiResource('v1/diseases',App\Http\Controllers\Api\V1\DiseaseController::class)
+->only(['index','store','show','update','destroy']);
+
+//->middleware('auth:sanctum');
