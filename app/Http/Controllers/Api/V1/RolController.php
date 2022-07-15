@@ -28,6 +28,11 @@ class RolController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required|max:45',
+            'status' => 'required|max:1'
+        ]);
+
         Rol::create($request->all());
         return response()->json(['message'=>'Data created successfully'],201);
     }
