@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\V1\RolResource;
-use App\Models\Rol;
+use App\Http\Resources\V1\UserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 
-class RolController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +18,7 @@ class RolController extends Controller
      */
     public function index()
     {
-        return RolResource::collection(Rol::all());
+        return UserResource::collection(User::all());
     }
 
     /**
@@ -29,42 +30,57 @@ class RolController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'   => 'required|max:45',
+            'person_id'  => 'required',
+            'rol_id'     => 'required',
+            'username'   => 'required',
+            'email'      => 'required',
+            'password'   => 'required',
             'status' => 'required|max:1'
         ]);
-
-        Rol::create($request->all());
+        $user = $request->all();
+        $user['password'] = bcrypt(request('password'));
+        User::create($user);
         return response()->json(['message'=>'Data created successfully'],201);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Rol  $rol
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Rol $rol)
+    public function show($id)
     {
+        $user = User::find($id);
+        if($user){
 
-        return new RolResource($rol);
+            return new UserResource($user);
+        }else{
+            return response()->json(['message'=>'cannot find registers']);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Rol  $rol
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rol $rol)
+    public function update(Request $request, $id)
     {
-        $newRol = Rol::find($rol->id);
+        $newUser = User::find($id);
         $response = [];
 
-        if($newRol){
-            $newRol->name = $request->name;
-            $newRol->status = $request->status;
-            $newRol->update();
+        if($newUser){
+            $newUser->username = $request->username;
+            $newUser->person_id = $request->person_id;
+            $newUser->rol_id = $request->rol_id;
+            $newUser->email = $request->email;
+            $newUser->password = bcrypt($request->password);
+            $newUser->status = $request->status;
+
+            $newUser->update();
 
             $response = [
                 'success'=>true,
@@ -84,15 +100,15 @@ class RolController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Rol  $rol
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Rol $rol)
+    public function destroy($id)
     {
         $response = [];
-
-        if($rol){
-            $rol->delete();
+        $user = User::find($id);
+        if($user){
+            $user->delete();
             $response = [
                 'success' =>true,
                 'message' => 'Register deleted successfully',
@@ -107,6 +123,5 @@ class RolController extends Controller
         }
 
         return response()->json($response);
-
     }
 }

@@ -21,6 +21,6 @@ Route::apiResource('v1/persons',App\Http\Controllers\Api\V1\PersonController::cl
 ->only(['index','store','show','update','destroy'])
 ->middleware('auth:sanctum');
 
-Route::apiResource('v1/usuarios',App\Http\Controllers\Api\V1\UsuarioController::class)
+Route::apiResource('v1/usuarios',App\Http\Controllers\Api\V1\UserController::class)
 ->only(['index','store','show','update','destroy'])
 ->middleware('auth:sanctum');

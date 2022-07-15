@@ -12,4 +12,8 @@ class Rol extends Model
     protected $table = 'rols';
 
     protected $fillable = ['name','status'];
+
+    public function user(){
+        return $this->hasOne(User::class);
+    }
 }
