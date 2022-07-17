@@ -40,3 +40,62 @@ On header you may need to put this=> Authorization: Bearer GeneratedToken
 
 - DELETE:
 -- 204 NO CONTENT: When we don't return data
+
+## STEPS TO FOLLOW FOR CREATE AN API RESOURCE
+
+### Create model, controller, migration and factory file
+We need this files to create the api model. Execute command ``php artisan make:model ModelName -cmf``.
+
+The next step is configure this created files in this order:
+1. Configure created model including 2 protected variables. **$table** and **$fillable**. In table assign the table name. This name will be the same at migration table name assigned. Fillable variable has an array with the fields that you will receive from the client. **$hidden** receive an array, this array specify which field will be hidden on a response.
+
+2. Configure Migration file created at /database/migrations to structure database table and relationships or Foreign Key. If you have a FK, follow the optional step: We use a relationship with 1.....*. Go to Model A and define a method with this syntax **public function ModelBInSingularForm()**. Inside this method define this: **return this->hasMany(ModelB::class)**.
+
+Now go to Model B and define the inverse relationship with this synta **public function ModelAInSingularForm()**. Inside this method define this: **return this->belongsTo(ModelA::class)**.
+
+3. Configure Factory file created at /database/factories to generate fake data on tables.
+
+4. Configure Seeder file at /database/seeders. This file it's by default, in this file we specify the amount of fake data to generate.
+
+5. Generate all tables with command ``php artisan migrate:refresh --seed``
+
+### Create Api controller and Resource
+Notice that we are working under version control, so the files that will be created, use the command with this format ``php artisan make:controller Api/Vn/PersonController --api --model=Person``, where Vn it's the version of the api,  PersonController it's an example of the controller name and Person it's the model associated to this model.
+
+To create a resource API, for a custom response, we use command ``php artisan make:resource Vn/PersonResource``, where Vn it's the version of the api, PersonResource it's a sample to create a resource.
+
+The resource will return by default all the fields of the table, so, change default return by an array. This array can be customized, the associative index it's can be seeing by the client(any application) and the value are own variables or our model.
+
+```php 
+    return [
+        //field which receive the client  |  the assigned value
+        'name'                          =>      $this->name,
+        //in this case, if we define a relationship, we can refer to FK fields
+        'gender'                        =>      $this->gender->name,
+        'mergedField'                   =>      $this->status." ".$this->created_at,
+    ];
+```
+
+The controller created for Api has 5 methods index, store, show, update, destroy associated to CRUD operations.
+
+- Create = store
+- Read = index,show
+- Update = update
+- Delete = delete
+
+Configure it using resource files created. you can find this usefull example, only applies this syntax on this methods (index, show):
+
+```php
+public function index()
+    {
+        return MedicineResource::collection(Medicine::all());
+    }
+```
+### Create Api route
+The api route will be defined using this sample:
+```php
+Route::apiResource('vn/diseases',App\Http\Controllers\Api\V1\DiseaseController::class)
+->only(['index','store','show','update','destroy'])
+->middleware('auth:sanctum');
+```
+https://laracasts.com/discuss/channels/laravel/create-pivot-table-from-artisan?page=1&replyId=707063
