@@ -38,3 +38,16 @@ Route::apiResource('v1/medicines',App\Http\Controllers\Api\V1\MedicineController
 Route::apiResource('v1/classifications',App\Http\Controllers\Api\V1\ClassificationController::class)
 ->only(['index','store','show','update','destroy'])
 ->middleware('auth:sanctum');
+
+Route::apiResource('v1/searchMedicineByDisappeared',App\Http\Controllers\Api\V1\DisappearedHasMedicamentosController::class)
+->only(['store','show'])
+->middleware('auth:sanctum');
+
+//replacing updateMethod for custom
+Route::put('v1/searchMedicineByDisappeared/{idDisappeared}/{idMedicine}',[
+    App\Http\Controllers\Api\V1\DisappearedHasMedicamentosController::class,'updateR'
+])->middleware('auth:sanctum');
+
+Route::delete('v1/searchMedicineByDisappeared/{idDisappeared}/{idMedicine}',[
+    App\Http\Controllers\Api\V1\DisappearedHasMedicamentosController::class,'destroyR'
+])->middleware('auth:sanctum');

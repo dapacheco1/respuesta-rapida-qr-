@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class DisappearedHasMedicamentos extends Model
 {
     use HasFactory;
+    protected $table = 'disappeared_has_medicamentos';
+    protected $fillable = ['disappeared_id','medicine_id'];
+
+    public function medicine(){
+        return $this->belongsTo(Medicine::class);
+    }
 }
