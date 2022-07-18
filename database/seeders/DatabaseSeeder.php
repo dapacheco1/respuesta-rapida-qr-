@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
         //BUSSINESS CORE
         \App\Models\Disease::factory(5)->create();
         \App\Models\Medicine::factory(5)->create();
+        \App\Models\Classification::factory(2)->create();
     }
 }

@@ -13,8 +13,11 @@ class ClassificationFactory extends Factory
      */
     public function definition()
     {
+        $status = ['I','A'];
+        $type = ['Persona','Mascota'];
         return [
-            //
+            'type'=> $this->faker->randomElement($type),
+            'status' =>$this->faker->randomElement($status)
         ];
     }
 }

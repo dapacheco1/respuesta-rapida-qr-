@@ -34,3 +34,7 @@ Route::apiResource('v1/diseases',App\Http\Controllers\Api\V1\DiseaseController::
 Route::apiResource('v1/medicines',App\Http\Controllers\Api\V1\MedicineController::class)
 ->only(['index','store','show','update','destroy'])
 ->middleware('auth:sanctum');
+
+Route::apiResource('v1/classifications',App\Http\Controllers\Api\V1\ClassificationController::class)
+->only(['index','store','show','update','destroy']);
+//->middleware('auth:sanctum');
