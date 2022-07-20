@@ -51,3 +51,6 @@ Route::put('v1/searchMedicineByDisappeared/{idDisappeared}/{idMedicine}',[
 Route::delete('v1/searchMedicineByDisappeared/{idDisappeared}/{idMedicine}',[
     App\Http\Controllers\Api\V1\DisappearedHasMedicamentosController::class,'destroyR'
 ])->middleware('auth:sanctum');
+
+Route::apiResource('v1/disappeareds',App\Http\Controllers\Api\V1\DisappearedController::class)
+->only(['store','show']);

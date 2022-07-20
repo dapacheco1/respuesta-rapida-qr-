@@ -14,4 +14,8 @@ class DisappearedHasMedicamentos extends Model
     public function medicine(){
         return $this->belongsTo(Medicine::class);
     }
+
+    public function disappeared(){
+        return $this->belongsTo(Disappeared::class);
+    }
 }
