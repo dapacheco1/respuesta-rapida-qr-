@@ -10,19 +10,8 @@ class Disappeared extends Model
 {
     use HasFactory;
 
-    public function disappearedHasMedicamento(){
-        return $this->hasMany(DisappearedHasMedicamentos::class);
-    }
 
-    public function classification(){
-        return $this->belongsTo(Classification::class);
-    }
-
-    public function disappearedHasDisease(){
-        return $this->hasMany(DisappearedHasDiseases::class);
-    }
-
-    public function disappearedHasPerson(){
-        return $this->hasMany(DisappearedHasPersonsResource::class);
+    public function person(){
+        return $this->belongsTo(Person::class);
     }
 }
