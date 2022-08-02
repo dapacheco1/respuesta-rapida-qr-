@@ -10,7 +10,8 @@ class Disappeared extends Model
 {
     use HasFactory;
 
-
+    protected $table = 'disappeareds';
+    protected $fillable = ['person_id','names','status'];
     public function person(){
         return $this->belongsTo(Person::class);
     }

@@ -28,4 +28,5 @@ Route::apiResource('v1/usuarios',App\Http\Controllers\Api\V1\UserController::cla
 
 //Bussines CORE API
 Route::apiResource('v1/disappeareds',App\Http\Controllers\Api\V1\DisappearedController::class)
-->only(['store','show']);
+->only(['store','show'])
+->middleware('auth:sanctum');

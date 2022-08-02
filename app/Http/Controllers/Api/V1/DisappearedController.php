@@ -27,7 +27,13 @@ class DisappearedController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'person_id'   => 'required',
+            'names'       => 'required',
+            'status'      => 'required|max:1',
+        ]);
+        Disappeared::create($request->all());
+        return response()->json(['message'=>'Datos guardados correctamente'],201);
     }
 
     /**

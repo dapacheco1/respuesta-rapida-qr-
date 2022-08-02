@@ -34,11 +34,28 @@ class PersonController extends Controller
             'lastnames'   => 'required',
             'address'     => 'required',
             'phoneNumber' => 'required|max:10',
-            'status'      => 'required|max:1'
+            'status'      => 'required|max:1',
         ]);
+        $pr = new Person();
+        $pr = $request->all();
+        $response = [];
+        //buscar por cedula
+        $resultado = Person::where('dni',$pr['dni'])->first();
+        if($resultado){
+            $response = [
+                'data'=>$resultado['id'],
+                'message' => 'Datos guardados de forma exitosa'
+            ];
+        }else{
+            Person::create($request->all());
+            $lastId = Person::all()->last()['id'];
 
-        Person::create($request->all());
-        return response()->json(['message'=>'Data created successfully'],201);
+            $response = [
+                'data' => $lastId,
+                'message' => 'Datos guardados de manera exitosa',
+            ];
+        }
+        return response()->json($response,201);
     }
 
     /**
