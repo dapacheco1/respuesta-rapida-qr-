@@ -21,6 +21,5 @@ class DatabaseSeeder extends Seeder
         //BUSSINESS CORE
 
         \App\Models\Disappeared::factory(5)->create();
-        \App\Models\DisappearedHasPersons::factory(5)->create();
     }
 }

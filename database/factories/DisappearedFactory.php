@@ -15,6 +15,7 @@ class DisappearedFactory extends Factory
     {
         $status = ['I','A'];
         return [
+            'person_id'=>rand(1,5),
             'names'=>$this->faker->name(),
             'identifier' => rand(150,210),
             'status' => $this->faker->randomElement($status),
