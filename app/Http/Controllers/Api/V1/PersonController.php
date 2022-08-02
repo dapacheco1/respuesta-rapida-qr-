@@ -28,15 +28,14 @@ class PersonController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'gender_id'   => 'required',
-            'dni'         => 'required|max:10',
-            'names'       => 'required',
-            'lastnames'   => 'required',
-            'address'     => 'required',
-            'phoneNumber' => 'required|max:10',
-            'status'      => 'required|max:1'
-        ]);
+        // $request->validate([
+        //     'dni'         => 'required|max:10',
+        //     'names'       => 'required',
+        //     'lastnames'   => 'required',
+        //     'address'     => 'required',
+        //     'phoneNumber' => 'required|max:10',
+        //     'status'      => 'required|max:1'
+        // ]);
 
         Person::create($request->all());
         return response()->json(['message'=>'Data created successfully'],201);
