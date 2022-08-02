@@ -15,7 +15,6 @@ class PersonFactory extends Factory
     {
         $status = ['I','A'];
         return [
-            'gender_id' => rand(1,7),
             'dni' => rand(1000000000,999999999),
             'names' =>$this->faker->firstName(),
             'lastnames' => $this->faker->lastName(),

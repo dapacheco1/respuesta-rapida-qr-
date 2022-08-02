@@ -16,11 +16,8 @@ class CreateDisappearedsTable extends Migration
         Schema::create('disappeareds', function (Blueprint $table) {
             $table->id();
             $table->string('names');
-            $table->string('image');
             $table->string('identifier');
-            $table->unsignedBigInteger('classification_id');
             $table->string('status',1);
-            $table->foreign('classification_id')->references('id')->on('classifications');
             $table->timestamps();
         });
     }

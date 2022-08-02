@@ -18,7 +18,8 @@ class LoginController extends Controller
         if (Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
                 'token' => $request->user()->createToken($request->name)->plainTextToken,
-                'message' => 'Success'
+                'message' => 'Success',
+                'username' => $request->user()->username
             ]);
         }
 

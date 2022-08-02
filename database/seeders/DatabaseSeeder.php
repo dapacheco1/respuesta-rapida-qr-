@@ -15,17 +15,12 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         \App\Models\Rol::factory(3)->create();
-        \App\Models\Gender::factory(7)->create();
         \App\Models\Person::factory(10)->create();
         \App\Models\User::factory(10)->create();
 
         //BUSSINESS CORE
-        \App\Models\Disease::factory(5)->create();
-        \App\Models\Medicine::factory(5)->create();
-        \App\Models\Classification::factory(2)->create();
+
         \App\Models\Disappeared::factory(5)->create();
-        \App\Models\DisappearedHasDiseases::factory(5)->create();
-        \App\Models\DisappearedHasMedicamentos::factory(5)->create();
         \App\Models\DisappearedHasPersons::factory(5)->create();
     }
 }

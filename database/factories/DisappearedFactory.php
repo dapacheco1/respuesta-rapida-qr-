@@ -16,9 +16,7 @@ class DisappearedFactory extends Factory
         $status = ['I','A'];
         return [
             'names'=>$this->faker->name(),
-            'image' => '/storage/images/default.png',
             'identifier' => rand(150,210),
-            'classification_id' =>rand(1,2),
             'status' => $this->faker->randomElement($status),
         ];
     }
